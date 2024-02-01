@@ -83,4 +83,15 @@ print(x(3,2,4))
 
 # LOCAL AND GLOBAL VARIABLES
 
-# https://youtu.be/VaSjiJMrq24?t=31513
+# Local Variable are restricted to one block of code and cannot be changed throughout the program
+
+# Global Variables are not restricted to one block of code and then can be changed throghout the program
+
+x = 24      # global variables
+print(x)
+def hello():
+    global x
+    x = 25  # local variables
+    print(x)
+hello()
+print(x)
