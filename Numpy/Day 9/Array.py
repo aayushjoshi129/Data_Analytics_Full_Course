@@ -72,7 +72,6 @@ print(arr.astype(float))
 print(arr2.astype(float))
 '''
 
-
 # MATHEMATICAL OPERATIONS AND FUNCTIONS ON ARRAYS
 
 '''
@@ -90,6 +89,40 @@ print(np.sqrt(arr1))
 print(np.sqrt(arr2))
 '''
 
-# COMBINING AND SPLITTING IN ARRAYS
+# COMBINING AND SPLITTING ARRAYS
 
+'''
+arr1 = np.array([30, 40, 50])
+arr2 = np.array([5, 5, 3])
+
+print(np.concatenate([arr1, arr2])) # Concatenate
+print(np.concatenate([arr1, arr2], axis=0)) # Concatenate
+
+arr3 = np.array([[30, 40], [50, 10]])
+arr4 = np.array([[5, 5], [3, 3]])
+print(np.concatenate([arr3,arr4]))  # Concatenate
+print(np.concatenate([arr3,arr4],axis=1)) # Horizontal Concatenate
+print(np.hstack([arr3,arr4]))   # Horizontal Concatenate
+print(np.vstack([arr3,arr4]))   # Vertical Concatenate
+
+a = np.array([30,40,30,40,10,20])
+print(np.array_split(a,4))
+print(np.array_split(a,3))
+'''
+
+# ADDING AND REMOVING ELEMENTS IN THE ARRAY
+
+# Functions
+# np.append(h,g)  -   append items to an Array
+# np.insert(a,1,5)    -   Inserts item in an Array
+# np.delete(a,[1]) - Delete items from an Array
+
+a = np.array([20,40,60,80])
+b = np.array([[20,40],[60,80]])
+print(np.append(a,[100,120]))   # Append
+print(np.insert(a,1,[100,120])) # Insert
+print(np.insert(b,1,[100,120], axis=1)) # Insert
+print(np.insert(b,1,[100], axis=1)) # Insert
+print(np.delete(a,1))   # Delete
+print(np.delete(b,1, axis=1))    # Delete
 
