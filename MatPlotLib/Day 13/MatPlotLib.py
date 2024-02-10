@@ -99,6 +99,3 @@ c=["red", "blue", "green", "violet", "brown"]
 plt.pie(x, labels=brands, colors=c, shadow=True, autopct="%.2f")
 plt.show()
 '''
-
-# Day 14
-# BOX PLOT
