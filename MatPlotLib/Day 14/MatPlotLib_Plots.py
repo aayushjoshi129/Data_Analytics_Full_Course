@@ -49,6 +49,3 @@ y=[30,40,25,30,40]
 plt.step(x,y)
 plt.show()
 '''
-
-# Day 15
-# LEGEND
