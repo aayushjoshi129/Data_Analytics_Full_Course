@@ -94,3 +94,9 @@ plt.savefig("Swarm_Plot_Dodge.png")
 plt.show()
 '''
 
+# KDE PLOT  (Kernel Density Estimation)
+'''
+data = sns.load_dataset("tips")
+sns.kdeplot(data, x='total_bill', hue='day', multiple='stack')
+plt.show()
+'''

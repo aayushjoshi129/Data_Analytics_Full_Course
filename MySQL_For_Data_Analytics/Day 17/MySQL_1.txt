@@ -1,0 +1,5 @@
+# MySQL is a relational database management system (RDBMS) developed by Oracle that is based on structured query language (SQL).
+
+select * from demo1.esd_csv;
+
+select distinct EEID from demo1.esd_csv;
