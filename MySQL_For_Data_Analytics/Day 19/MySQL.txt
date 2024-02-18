@@ -1,0 +1,91 @@
+select * from demo1.esd_csv;
+
+select sum(Age) from demo1.esd_csv where Bonus>'10%';
+select count(Age) from demo1.esd_csv where Bonus>'10%';
+select avg(Age) from demo1.esd_csv where Bonus>'10%';
+select max(Age) from demo1.esd_csv where Bonus>'10%';
+select min(Age) from demo1.esd_csv where Bonus>'10%';
+select truncate(Age,0) from demo1.esd_csv where Bonus>'10%';	-- eliminate decimal values
+select ceil(Age) from demo1.esd_csv where Bonus>'10%';	-- move to next highest value
+select floor(Age) from demo1.esd_csv where Bonus>'10%';	-- move to next lowest value
+select ceiling(Age) from demo1.esd_csv where Bonus>'10%';	-- move to next lowest value
+
+
+
+SELECT * FROM sakila.customer;
+
+select datediff(create_date,last_update) from sakila.customer;
+select datediff(create_date) from sakila.customer;
+select time(create_date) from sakila.customer;
+select date(create_date) from sakila.customer;
+select month(create_date) from sakila.customer;
+select year(create_date) from sakila.customer;
+select day(create_date) from sakila.customer;
+select hour(create_date) from sakila.customer;
+select minute(create_date) from sakila.customer;
+select second(create_date) from sakila.customer;
+
+
+
+SELECT * FROM sakila.film;
+
+select length, case when length<=50 then "Length Should be more than 50" when length>=100 then "Length should be less than 100"
+else "Perfect Length" end as length FROM sakila.film;
+
+
+
+SELECT * FROM demo1.esd_csv;
+
+select count(EEID) as cunt, Department, Gender from demo1.esd_csv group by 2, 3  order by Department, cunt desc;
+
+select count(EEID) as cunt, Department, Gender from demo1.esd_csv group by 2, 3 having count(EEID)>50  order by Department, cunt desc;
+
+
+
+
+SELECT * FROM sakila.city;
+
+SELECT * FROM sakila.country;
+
+select distinct country, city from sakila.city a inner join sakila.country b on a.country_id = b.country_id;
+
+select distinct country, city from sakila.city a left join sakila.country b on a.country_id = b.country_id;
+
+select distinct country, city from sakila.city a right join sakila.country b on a.country_id = b.country_id;
+
+create or replace view Country_City as (
+select distinct country, city from sakila.city a inner join sakila.country b on a.country_id = b.country_id
+);
+
+select * from sakila.country_city;
+
+Delimiter &&
+create procedure get_data()
+begin
+select * from sakila.country_city limit 10;
+end &&
+Delimiter ;
+
+call sakila.get_data();
+
+
+Delimiter &&
+create procedure get_limit(in var int)
+begin
+select * from sakila.country_city limit var;
+end &&
+Delimiter ;
+
+
+Delimiter &&
+create procedure get_out(out var varchar(255))
+begin
+select country into var from sakila.country_city limit 1;
+end &&
+Delimiter ;
+
+call sakila.get_data();
+call sakila.get_limit(100);
+call sakila.get_out(@m);
+select @m;
+
