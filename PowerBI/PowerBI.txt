@@ -1,0 +1,7 @@
+Business Intelligence Tools - They are types of apps software that collects and process large amount of unstructured data from internal and external systems, including books, journals, documents, health records, images, files, emails, videos, and other business sources.
+
+POWER BI - Microsoft Power BI is a data visualization and reporting platform that is used by businesses and professionals every day.
+
+Pivoting - Conversion of Rows to Columns
+
+Un-Pivoting - Conversion of Columns to Rows
