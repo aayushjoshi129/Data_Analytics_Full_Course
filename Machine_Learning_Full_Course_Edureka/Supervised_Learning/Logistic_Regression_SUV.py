@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib as plt
 
-df = pd.read_csv('DataSets/suv_data.csv')
+df = pd.read_csv('../DataSets/suv_data.csv')
 # print(df.head(5))
 # print(df.isnull().sum())
 
