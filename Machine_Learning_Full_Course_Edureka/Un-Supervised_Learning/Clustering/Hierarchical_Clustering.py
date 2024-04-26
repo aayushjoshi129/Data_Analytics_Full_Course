@@ -1,0 +1,2 @@
+# Hierarchical clustering is a method used in machine learning to group similar data points into clusters based on their proximity to each other. It builds a tree-like hierarchy of clusters by successively merging or splitting existing clusters based on their similarities. Hierarchical clustering does not require specifying the number of clusters in advance, and it provides a visual representation of the data's clustering structure through dendrograms.
+

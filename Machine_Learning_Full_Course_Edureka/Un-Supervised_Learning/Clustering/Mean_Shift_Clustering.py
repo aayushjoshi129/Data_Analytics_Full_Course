@@ -1,0 +1,2 @@
+# Mean shift clustering is a non-parametric clustering technique in machine learning. It works by iteratively shifting data points towards the mode (or peak) of the data distribution in the feature space. Data points are attracted towards regions with higher data density, eventually converging to local density maxima, which represent cluster centroids. Mean shift clustering does not require specifying the number of clusters in advance and can automatically determine the optimal number of clusters based on the data distribution.
+
