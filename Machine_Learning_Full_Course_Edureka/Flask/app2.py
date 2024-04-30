@@ -7,7 +7,7 @@ app = Flask(__name__)
 def hello():
     if request.method == "POST":
         power = request.form['engine']
-        engine_pred = model_train.engine_pred(power)
+        engine_pred = model_train.engine_pred(int(power))
         print(engine_pred)
     return render_template("engine_power.html")
 
