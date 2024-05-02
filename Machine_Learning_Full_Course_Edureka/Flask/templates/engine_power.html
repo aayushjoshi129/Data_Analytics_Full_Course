@@ -83,5 +83,9 @@
     </form>
 </div>
 
+{% if eng is not none and eng > 0 %}
+<p>The Predicted Engine Power is:</p>
+{{eng}}
+{% endif %}
 </body>
 </html>
