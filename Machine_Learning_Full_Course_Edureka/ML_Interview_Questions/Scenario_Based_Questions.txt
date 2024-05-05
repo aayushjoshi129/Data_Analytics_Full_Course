@@ -1,0 +1,414 @@
+Q1) You are given a dataset consisting of variables having more than 30% missing values?
+Let's say out of 50 variables, 8 variables have missing values higher than 30%. How to deal with them?
+
+When dealing with variables having more than 30% missing values in a dataset, you have several options to consider:
+
+1. **Remove Variables:** If the variables with missing values higher than 30% are not critical for your analysis, you may choose to remove them entirely from the dataset. This can be done using the `drop()` function in Pandas.
+
+2. **Imputation:** If the variables are important for your analysis, you may choose to impute the missing values using various methods such as mean imputation, median imputation, mode imputation, or more sophisticated methods like KNN imputation or regression imputation.
+
+3. **Flag and Fill:** Another approach is to create a new binary flag variable indicating whether the data was missing for each variable, and then fill in the missing values with a suitable value such as the mean, median, or mode.
+
+4. **Domain-Specific Methods:** Depending on the domain of your data and the nature of the variables, you may have domain-specific methods for handling missing values. For example, for time series data, you may use interpolation or forward/backward filling.
+
+5. **Model-Based Imputation:** You can also use machine learning models to predict missing values based on other variables in the dataset. This approach is more complex but can potentially capture relationships between variables more accurately.
+
+It's important to consider the context of your analysis, the impact of missing values on your results, and the assumptions of the imputation method when choosing the appropriate approach. Additionally, it's good practice to document the method used for handling missing values in your analysis.
+
+
+Q2) Write an SQL query that makes recommendations using the pages that your friends liked.
+Assume you have 2 tables: a two-column table of users and their friends, and a two-column table of users and the pages they liked. It should not recommend pages you already like.
+
+Select F.user_id, L.page_id from friend F Inner Join Like L on F.friend_id = L.user_id where L.page_id not in (select page_id from Like where user_id=F.user_id)
+
+
+To make recommendations using the pages that your friends liked while excluding pages you already like, you can use a SQL query with a combination of JOIN, subqueries, and NOT IN clause. Here's how you can write the SQL query:
+
+```sql
+SELECT DISTINCT pl.page
+FROM pages_likes pl
+JOIN (
+    SELECT friend
+    FROM friends
+    WHERE user = 'your_user_id'
+) f ON pl.user = f.friend
+WHERE pl.page NOT IN (
+    SELECT page
+    FROM pages_likes
+    WHERE user = 'your_user_id'
+);
+```
+
+Explanation:
+- `pages_likes` is the table containing users and the pages they liked.
+- `friends` is the table containing users and their friends.
+- `'your_user_id'` is the ID of the user for whom recommendations are being made.
+
+The query selects distinct pages liked by the friends of the user specified by `'your_user_id'`. It uses a subquery to get the friends of the user, then joins it with the `pages_likes` table to get the pages liked by those friends. Finally, it filters out the pages already liked by the user using the NOT IN clause.
+
+Make sure to replace `'your_user_id'` with the actual user ID for whom recommendations are being made.
+
+users_friends table:
+| user_id | friend_id |
+|---------|-----------|
+|    1    |     2     |
+|    1    |     3     |
+|    2    |     1     |
+|    2    |     3     |
+|    3    |     1     |
+|    3    |     2     |
+
+users_pages_likes table:
+| user_id |   page   |
+|---------|----------|
+|    1    |  Page A  |
+|    1    |  Page B  |
+|    2    |  Page B  |
+|    2    |  Page C  |
+|    3    |  Page A  |
+|    3    |  Page D  |
+
+Output of SQL query:
+|   page   |
+|----------|
+|  Page C  |
+|  Page D  |
+
+
+
+Q3) There's a game where you are asked to roll two fair six-sided dice. If the sum of the values on the dice equals seven, then you win $21. However, you must pay $5 to play each time you roll both dice. Do you play this game? And in follow-up: If he plays 6 times what is the probability of making money from this game?
+
+To determine whether it's profitable to play the game, let's calculate the expected value (EV) of playing it once:
+
+1. **Calculate the Probability of Winning:**
+   - The probability of getting a sum of seven when rolling two fair six-sided dice is \( \frac{1}{6} \) since there are six possible outcomes out of 36 total outcomes (6 * 6).
+
+2. **Calculate the Expected Winnings:**
+   - If you win, you gain $21.
+   - Therefore, the expected winnings from winning are \( 21 \times \frac{1}{6} = \frac{21}{6} \).
+
+3. **Calculate the Expected Cost:**
+   - You pay $5 to play each time.
+   - Therefore, the expected cost is $5.
+
+4. **Calculate the Expected Value (EV):**
+   - The EV is calculated as the expected winnings minus the expected cost.
+   - EV = Expected Winnings - Expected Cost
+   - EV = \( \frac{21}{6} \) - $5
+   - EV = \( \frac{21}{6} \) - $5
+   - EV ≈ $1.50
+
+Since the expected value of playing the game once is positive (\$1.50), it's profitable to play the game once. You should play the game.
+
+For the follow-up question:
+
+If you play the game six times, the probability of making money can be calculated using the binomial distribution. The probability of making money is the probability of winning at least once in six attempts.
+
+Let \( p \) be the probability of winning (which we calculated as \( \frac{1}{6} \)), and let \( n \) be the number of attempts (which is 6 in this case).
+
+The probability of winning at least once in six attempts can be calculated as:
+
+\[
+P(\text{{Winning at least once in 6 attempts}}) = 1 - P(\text{{Losing all 6 attempts}})
+\]
+
+\[
+= 1 - (1 - p)^n
+\]
+
+\[
+= 1 - (1 - \frac{1}{6})^6
+\]
+
+\[
+\approx 1 - (1 - 0.1667)^6
+\]
+
+\[
+\approx 1 - (0.8333)^6
+\]
+
+\[
+\approx 1 - 0.3349
+\]
+
+\[
+\approx 0.6651
+\]
+
+Therefore, the probability of making money from playing the game six times is approximately 66.51%.
+
+
+Q4) We have two options for serving ads within Newsfeed:
+1 - out of every 25 stories, one will be an ad
+2 - every story has a 4% chance of being an ad
+For each option, what is the expected number of ads shown in 100 news stories?
+If we go with option 2, what is the chance a user will be shown only a single ad in 100 stories? What about no ads at all?
+
+Let's calculate the expected number of ads shown in 100 news stories for each option:
+
+Option 1:
+- In this option, out of every 25 stories, one will be an ad. Therefore, the expected number of ads shown in 100 news stories is \( \frac{100}{25} = 4 \).
+
+Option 2:
+- In this option, every story has a 4% chance of being an ad. Therefore, the expected number of ads shown in 100 news stories is \( 100 \times 0.04 = 4 \).
+
+Now, let's calculate the probability of a user being shown only a single ad in 100 stories for option 2:
+
+The probability of a single ad in 100 stories can be calculated using the binomial distribution. Let \( p \) be the probability of an ad (which is 0.04), and let \( n \) be the number of stories (which is 100).
+
+The probability of exactly one ad in 100 stories can be calculated as:
+
+\[
+P(\text{{Exactly one ad in 100 stories}}) = nC1 \times p \times (1 - p)^{n - 1}
+\]
+
+\[
+= \binom{100}{1} \times 0.04 \times (1 - 0.04)^{100 - 1}
+\]
+
+\[
+= 100 \times 0.04 \times (0.96)^{99}
+\]
+
+Let's calculate this:
+
+\[
+= 100 \times 0.04 \times (0.96)^{99} \approx 0.1813
+\]
+
+Therefore, the chance a user will be shown only a single ad in 100 stories for option 2 is approximately 18.13%.
+
+To find the probability of no ads at all in 100 stories for option 2, we can use the complement rule:
+
+\[
+P(\text{{No ads at all in 100 stories}}) = 1 - P(\text{{At least one ad in 100 stories}})
+\]
+
+Since we've already calculated the probability of exactly one ad, we can use it to find the probability of at least one ad:
+
+\[
+P(\text{{At least one ad in 100 stories}}) = 1 - 0.1813
+\]
+
+Let's calculate this:
+
+\[
+= 1 - 0.1813 = 0.8187
+\]
+
+Therefore, the chance a user will be shown no ads at all in 100 stories for option 2 is approximately 81.87%.
+
+
+
+Q5) How would you predict who will renew their subscription next month? What data would you need to solve this? What analysis would you do? Would you build predictive models? If so, which algorithms?
+
+To predict who will renew their subscription next month, you would typically perform a churn prediction analysis. Here's an outline of the steps you would take:
+
+1. **Data Collection:**
+   - Collect historical data on subscription renewals, including information about customers who renewed and those who did not. This data should include various features such as customer demographics, usage behavior, transaction history, etc.
+
+2. **Data Preprocessing:**
+   - Clean the data to handle missing values, outliers, and inconsistencies.
+   - Transform categorical variables into numerical format using techniques like one-hot encoding.
+   - Split the data into training and testing sets.
+
+3. **Feature Engineering:**
+   - Create new features that may be predictive of churn, such as:
+     - Customer tenure (length of subscription)
+     - Frequency of product usage
+     - Customer interactions with customer support
+     - Engagement metrics (e.g., number of logins, time spent on platform)
+   - Select relevant features based on domain knowledge and feature importance analysis.
+
+4. **Exploratory Data Analysis (EDA):**
+   - Analyze the distribution of target variable (churn) and explore relationships between features and churn.
+   - Visualize trends and patterns in the data to gain insights.
+
+5. **Model Building:**
+   - Select appropriate machine learning algorithms for binary classification (churn prediction), such as:
+     - Logistic Regression
+     - Random Forest
+     - Gradient Boosting Machines (GBM)
+     - Support Vector Machines (SVM)
+     - Neural Networks (e.g., Multi-layer Perceptron)
+   - Train multiple models using the training data and evaluate their performance using metrics like accuracy, precision, recall, F1-score, and ROC-AUC.
+
+6. **Model Evaluation:**
+   - Assess the performance of each model using the testing data and select the best-performing model based on evaluation metrics.
+   - Tune hyperparameters to improve model performance if necessary.
+
+7. **Deployment:**
+   - Deploy the selected model into production to make predictions on new data.
+   - Monitor model performance over time and retrain the model periodically with updated data.
+
+8. **Post-Deployment Analysis:**
+   - Analyze model predictions and monitor churn rates to assess the effectiveness of the churn prediction model.
+   - Iterate on the model and data as needed to improve performance.
+
+In summary, to predict subscription renewals, you would need historical data on subscription behavior and customer attributes. You would perform data preprocessing, feature engineering, and exploratory data analysis to prepare the data for modeling. Then, you would build and evaluate predictive models using various machine learning algorithms, deploy the best-performing model, and monitor its performance over time.
+
+
+Q6) How do you map nicknames (Pete, Andy, Nick, Rob, etc) to real names?
+
+Mapping nicknames to real names can be approached as a text classification problem in machine learning. Here's a high-level overview of how you could tackle this task:
+
+1. **Data Collection:**
+   - Gather a dataset containing pairs of nicknames and corresponding real names. You can collect this data from various sources, including social media profiles, online forums, or public datasets.
+
+2. **Data Preprocessing:**
+   - Clean the data to handle any inconsistencies or errors.
+   - Convert the data into a suitable format for modeling, such as a structured dataset with columns for nickname and real name.
+
+3. **Feature Engineering:**
+   - Extract relevant features from the nickname data that may be useful for predicting real names. This could include:
+     - Length of the nickname
+     - Presence of specific characters or substrings
+     - Phonetic similarity to real names
+     - Common patterns or prefixes/suffixes in nicknames
+   - You may also consider incorporating external features, such as the gender associated with the nickname, if available.
+
+4. **Model Selection:**
+   - Choose a suitable machine learning algorithm for the classification task. Common algorithms for text classification include:
+     - Logistic Regression
+     - Random Forest
+     - Support Vector Machines (SVM)
+     - Naive Bayes
+     - Gradient Boosting Machines (GBM)
+   - Experiment with different algorithms to see which one performs best on your dataset.
+
+5. **Model Training:**
+   - Split the dataset into training and testing sets.
+   - Train the selected machine learning model on the training data.
+   - Tune hyperparameters as needed to optimize model performance.
+
+6. **Model Evaluation:**
+   - Evaluate the trained model's performance on the testing data using appropriate metrics such as accuracy, precision, recall, and F1-score.
+   - Analyze the model's predictions and any misclassifications to understand its strengths and weaknesses.
+
+7. **Deployment:**
+   - Deploy the trained model into production, where it can be used to map new nicknames to real names.
+   - Integrate the model into your application or workflow to automate the nickname-to-real-name mapping process.
+
+8. **Monitoring and Maintenance:**
+   - Monitor the model's performance in production and retrain it periodically with new data to ensure it remains accurate over time.
+   - Update the model as needed to account for changes in nickname usage or naming conventions.
+
+By following these steps, you can build a machine learning model that maps nicknames to real names with a high degree of accuracy, helping to automate and streamline the process of identifying individuals based on their chosen or commonly used names.
+
+
+Q7) A jar has 1000 coins, of which 999 are fair and 1 is double headed. Pick a coin at random, and toss it 10 times. Given that you see 10 heads, what is the probability that the next toss of that coin is also a head?
+
+To solve this problem, we can apply Bayes' theorem. Let's define the events:
+
+- A: The coin selected is the double-headed coin.
+- B: We observe 10 heads in a row.
+
+We want to find the conditional probability P(A|B), which represents the probability that the next toss of the coin is a head given that we observed 10 heads in a row.
+
+By Bayes' theorem:
+
+\[ P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)} \]
+
+We can calculate the individual probabilities:
+
+- \( P(A) \): Probability of selecting the double-headed coin. Since there are 1000 coins and only 1 is double-headed, \( P(A) = \frac{1}{1000} \).
+- \( P(B|A) \): Probability of observing 10 heads in a row given that the selected coin is double-headed. Since the double-headed coin always lands heads, \( P(B|A) = 1 \).
+- \( P(B) \): Probability of observing 10 heads in a row, which can be calculated by considering both scenarios: selecting the fair coin and selecting the double-headed coin.
+
+Let's calculate \( P(B) \) first:
+
+\[ P(B) = P(B|A) \cdot P(A) + P(B|\neg A) \cdot P(\neg A) \]
+
+Where:
+- \( P(B|\neg A) \): Probability of observing 10 heads in a row given that the selected coin is fair. This is the probability of getting 10 heads in 10 tosses of a fair coin, which is \( (\frac{1}{2})^{10} \).
+- \( P(\neg A) \): Probability of selecting a fair coin, which is \( 1 - P(A) = \frac{999}{1000} \).
+
+Now we can substitute these values into Bayes' theorem to find \( P(A|B) \):
+
+\[ P(A|B) = \frac{1 \cdot \frac{1}{1000}}{(1 \cdot \frac{1}{1000}) + ((\frac{1}{2})^{10} \cdot \frac{999}{1000})} \]
+
+Calculating this expression will give us the probability that the next toss of the coin is a head given that we observed 10 heads in a row.
+
+
+Q8) Suppose you are given a data set which has missing values spread along 1 standard deviation from the median. What percentage of data would remain unaffected and Why?
+
+If the missing values are spread along 1 standard deviation from the median in a normal distribution, approximately 68.27% of the data will remain unaffected.
+
+This is because in a normal distribution:
+- About 68.27% of the data falls within one standard deviation of the mean.
+- About 34.13% falls within half a standard deviation below the mean, and 34.13% falls within half a standard deviation above the mean.
+
+Since the missing values are spread along 1 standard deviation from the median, they will affect approximately 50% of the data points on one side of the distribution (half a standard deviation below the median) and 50% on the other side (half a standard deviation above the median). Therefore, the unaffected portion of the data will be the remaining approximately 68.27%.
+
+
+Q9) You are given a cancer detection data set. Let's suppose when you build a classification model you achieved an accuracy of 96%. Why shouldn't you be happy with your model performance? What can you do about it?
+
+A) Add More Data
+B) Treat Missing outlier values
+C) Feature Engineering
+D) Feature Selection
+E) Multiple Algo's
+F) Algo's Tuning
+G) Ensemble Method
+H) Cross Validation
+
+While achieving a high accuracy of 96% in a cancer detection model may initially seem promising, it's important to consider other metrics and factors before concluding that the model performance is satisfactory. Here are a few reasons why relying solely on accuracy might not be sufficient:
+
+1. **Class Imbalance**: If the dataset is imbalanced, meaning one class (e.g., non-cancerous) significantly outweighs the other (e.g., cancerous), a high accuracy can be achieved by simply predicting the majority class. In such cases, accuracy alone can be misleading.
+
+2. **Misclassification Costs**: In cancer detection, the cost of misclassifying a cancerous case as non-cancerous (false negative) can be much higher than the cost of misclassifying a non-cancerous case as cancerous (false positive). Accuracy does not consider the consequences of different types of errors.
+
+3. **Sensitive to Thresholds**: The default threshold for classification may not be appropriate for all scenarios. Adjusting the threshold can lead to changes in accuracy and other metrics.
+
+4. **Other Performance Metrics**: Metrics such as precision, recall, F1-score, and area under the ROC curve (AUC-ROC) provide additional insights into model performance, especially in situations with class imbalance or differing mis-classification costs.
+
+To address these concerns, you can:
+
+- **Examine Confusion Matrix**: Analyze the confusion matrix to understand the distribution of true positives, false positives, true negatives, and false negatives.
+
+- **Evaluate Other Metrics**: Calculate precision, recall, F1-score, and AUC-ROC to get a more comprehensive understanding of model performance.
+
+- **Consider Resampling Techniques**: Use techniques such as oversampling, under sampling, or synthetic minority oversampling technique (SMOTE) to address class imbalance.
+
+- **Tune Model Thresholds**: Adjust classification thresholds to optimize for specific metrics or to align with domain-specific requirements.
+
+- **Collect More Data**: Increasing the dataset size or improving data quality may lead to better model performance.
+
+By considering these factors and taking appropriate actions, you can ensure a more robust evaluation of your cancer detection model and potentially improve its performance beyond just accuracy.
+
+
+Q10) You are working on a time series data set. You manager has asked you to build a high accuracy model. You start with the decision tree algorithm, since you know it works fairly well on all kinds of data. Later, you tried a time series regression model and got higher accuracy than decision tree model. Can this happen? Why?
+
+Yes, it is possible for a time series regression model to achieve higher accuracy than a decision tree model on a time series dataset. This can happen due to several reasons:
+
+1. **Model Suitability**: Time series regression models are specifically designed to capture patterns and relationships in time-dependent data. If the underlying relationships in the dataset are better captured by the temporal nature of a time series regression model, it can outperform a decision tree model which may not explicitly consider the temporal aspect.
+
+2. **Feature Engineering**: Time series regression models allow for the incorporation of time-dependent features and lagged variables, which can effectively capture temporal dependencies in the data. Decision tree models may not handle time series data as effectively unless the temporal features are explicitly engineered.
+
+3. **Model Complexity**: Time series regression models can be more complex and flexible, allowing them to capture intricate patterns and relationships in the data. Decision tree models, while versatile, may not have the capacity to capture complex temporal dependencies as effectively.
+
+4. **Training Data**: The quality and quantity of training data can significantly impact model performance. If the time series regression model is trained on a larger or more representative dataset, it may perform better than a decision tree model trained on a smaller or less diverse dataset.
+
+5. **Hyperparameter Tuning**: Proper tuning of hyperparameters can greatly influence the performance of both models. If the hyperparameters of the time series regression model are tuned more effectively, it may lead to higher accuracy compared to the decision tree model.
+
+In summary, the higher accuracy of a time series regression model compared to a decision tree model on a time series dataset can be attributed to the model's suitability for capturing temporal dependencies, effective feature engineering, complexity, quality of training data, and hyperparameter tuning.
+
+
+Q11) Suppose you found that your model is suffering from low bias and high variance. Which algorithm you think could tackle this situation and Why?
+
+Type 1: How to tackle high variance?
+
+To tackle high variance in a model, the focus should be on reducing the complexity of the model and preventing it from overfitting to the training data. One algorithm that is commonly used to address high variance is **Regularization**, particularly techniques like **Ridge Regression** or **Lasso Regression**.
+
+Here's why Ridge Regression or Lasso Regression can be effective in reducing high variance:
+
+1. **Regularization**: Both Ridge Regression and Lasso Regression add a regularization term to the loss function during training. This regularization term penalizes large coefficients, effectively reducing the complexity of the model.
+
+2. **Shrinkage of Coefficients**: By penalizing large coefficients, regularization techniques encourage the model to shrink the coefficients towards zero. This prevents the model from fitting the noise in the training data too closely, thereby reducing variance.
+
+3. **Feature Selection**: In addition to reducing variance, Lasso Regression also performs feature selection by setting some coefficients to exactly zero. This can help in eliminating irrelevant features and further simplifying the model.
+
+4. **Controlled Complexity**: Regularization allows for controlled complexity in the model. The regularization parameter can be tuned to strike a balance between bias and variance, leading to better generalization performance on unseen data.
+
+In summary, Ridge Regression and Lasso Regression are effective algorithms for tackling high variance because they add regularization to the model, shrink the coefficients, perform feature selection (in the case of Lasso), and allow for controlled complexity, thereby reducing over-fitting and improving generalization performance.
