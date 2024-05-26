@@ -1,0 +1,104 @@
+Azure Data Factory (ADF) Data Flows provide a powerful way to transform data at scale within the ADF service. Data Flows are built on Spark and offer a visual interface to design complex data transformations without writing code. Here’s an introduction to the key concepts and types of operations available in ADF Data Flows:
+
+### Introduction to Data Flows
+
+**Data Flows** in ADF are used for transforming data. They enable data engineers to visually design data transformation logic, which is then executed on an Azure Databricks or Azure Synapse Analytics Spark cluster. This visual approach simplifies the process of creating ETL (Extract, Transform, Load) and ELT (Extract, Load, Transform) workflows.
+
+### Key Components of Data Flows
+
+1. **Source**:
+   - Defines the input dataset for the Data Flow. It can connect to various data sources such as Azure Blob Storage, Azure SQL Database, Azure Data Lake Storage, etc.
+
+2. **Transformations**:
+   - A set of operations that modify, filter, join, or aggregate data. Each transformation can be linked to one or more subsequent transformations to create a flow of data.
+
+3. **Sink**:
+   - Defines the destination dataset where the transformed data will be written. Similar to the source, it supports various data stores.
+
+### Types of Transformations in Data Flows
+
+1. **Source Transformation**:
+   - Reads data from a source dataset.
+
+2. **Sink Transformation**:
+   - Writes data to a destination dataset.
+
+3. **Filter Transformation**:
+   - Filters rows based on a condition. Only rows that meet the specified criteria are passed to the next transformation.
+   - Example: Filter rows where `age > 18`.
+
+4. **Select Transformation**:
+   - Chooses which columns to include or exclude from the data flow, renames columns, or reorders columns.
+   - Example: Select columns `name`, `age`, `city`.
+
+5. **Derived Column Transformation**:
+   - Adds new columns or modifies existing columns using expressions.
+   - Example: Create a new column `fullName` by concatenating `firstName` and `lastName`.
+
+6. **Conditional Split Transformation**:
+   - Splits data into multiple streams based on conditions. Each stream can be processed differently.
+   - Example: Split data where `status = 'active'` goes to one stream and `status = 'inactive'` to another.
+
+7. **Aggregate Transformation**:
+   - Performs aggregation operations like sum, average, count, min, max, etc., grouped by specified columns.
+   - Example: Calculate the total sales grouped by `region`.
+
+8. **Join Transformation**:
+   - Combines data from two sources based on a join condition. Supports inner, outer, left, and right joins.
+   - Example: Join orders with customers on `customerId`.
+
+9. **Lookup Transformation**:
+   - Enriches data by looking up values from another dataset.
+   - Example: Add customer details to orders by looking up `customerId`.
+
+10. **Sort Transformation**:
+    - Orders data based on specified columns.
+    - Example: Sort data by `orderDate`.
+
+11. **Union Transformation**:
+    - Combines data from multiple streams into a single stream.
+    - Example: Union data from two different regions.
+
+12. **Pivot Transformation**:
+    - Converts rows into columns.
+    - Example: Pivot sales data to show sales by month as columns.
+
+13. **Unpivot Transformation**:
+    - Converts columns into rows.
+    - Example: Unpivot monthly sales columns back into rows.
+
+14. **Exists Transformation**:
+    - Checks for the existence of rows in another dataset.
+    - Example: Filter rows that exist in another dataset based on a condition.
+
+15. **Surrogate Key Transformation**:
+    - Generates unique key values for each row.
+    - Example: Add a new surrogate key column to the dataset.
+
+16. **Window Transformation**:
+    - Performs calculations across a set of table rows related to the current row.
+    - Example: Calculate a running total or moving average.
+
+### Using Data Flow Joins
+
+**Join Transformation** is a powerful feature in Data Flows that allows combining data from two sources based on a specified condition. Here are the types of joins available:
+
+1. **Inner Join**:
+   - Returns only the rows that have matching values in both datasets.
+   - Example: Combine orders and customers where `orders.customerId = customers.customerId`.
+
+2. **Left Outer Join**:
+   - Returns all rows from the left dataset and matched rows from the right dataset. Non-matching rows from the right dataset will have null values.
+   - Example: Return all orders and their corresponding customer details, if available.
+
+3. **Right Outer Join**:
+   - Returns all rows from the right dataset and matched rows from the left dataset. Non-matching rows from the left dataset will have null values.
+   - Example: Return all customers and their orders, if available.
+
+4. **Full Outer Join**:
+   - Returns rows when there is a match in one of the datasets. Rows with no match will have null values for columns from the other dataset.
+   - Example: Return all customers and orders, including unmatched ones.
+
+### Conclusion
+
+Azure Data Factory’s Data Flows offer a comprehensive set of transformations for building complex data workflows. By understanding and utilizing various transformations such as joins, filters, selects, and more, you can effectively design and execute robust data integration and transformation tasks in a visual and scalable manner. This makes ADF Data Flows a powerful tool for modern data engineering needs.
