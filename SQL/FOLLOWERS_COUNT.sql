@@ -1,0 +1,21 @@
+CREATE DATABASE FOLLOWERS_COUNT;
+
+USE FOLLOWERS_COUNT;
+
+CREATE TABLE Followers (
+    user_id INT,
+    follower_id INT,
+    PRIMARY KEY (user_id, follower_id)
+);
+
+
+INSERT INTO Followers (user_id, follower_id) VALUES
+(0, 1),
+(1, 0),
+(2, 0),
+(2, 1);
+
+
+
+SELECT USER_ID, COUNT(FOLLOWER_ID) AS FOLLOWERS_COUNT FROM FOLLOWERS 
+GROUP BY USER_ID ORDER BY USER_ID ASC;
