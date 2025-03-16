@@ -1,0 +1,2 @@
+# Agglomerative clustering is a hierarchical clustering technique in machine learning. It starts with each data point as a separate cluster and then merges the closest clusters iteratively until only one cluster remains. The closeness between clusters is determined by a distance metric such as Euclidean distance. Agglomerative clustering creates a hierarchy of clusters, represented as a dendrogram, which can be cut at different levels to obtain different numbers of clusters.
+

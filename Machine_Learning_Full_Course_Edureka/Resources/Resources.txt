@@ -1,0 +1,12 @@
+Machine Learning Video: https://www.youtube.com/watch?v=N5fSpaaxoZc
+
+My Github Link: https://github.com/aayushjoshi129/Data_Analytics_Full_Course/tree/Data_Analytics_Using_Python/Machine_Learning_Full_Course_Edureka
+
+Titanic_Dataset: https://github.com/mwaskom/seaborn-data/blob/master/titanic.csv
+
+SUV_Predictions_DataSet: https://www.kaggle.com/code/rishikesh247/suv-prediction
+
+Scikit Learn Resources (SKLEARN): https://scikit-learn.org/stable/tutorial/index.html
+
+CGPT Asked Questions: https://chatgpt.com/share/5dfb232d-0bfc-4b85-b858-93b7da76c76e
+

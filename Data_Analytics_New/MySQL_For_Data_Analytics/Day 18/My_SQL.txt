@@ -1,0 +1,29 @@
+select * from demo1.esd_csv;
+
+select distinct EEID from demo1.esd_csv;
+
+select distinct * from demo1.esd_csv where City="Seattle";
+
+select distinct `Annual Salary` from demo1.esd_csv where `Job Title`='Sr. Manger';
+
+alter table demo1.esd_csv rename column `Bonus %` to Bonus;
+
+select distinct AnnualSalary from demo1.esd_csv where JobTitle='Sr. Manger';
+
+select * from demo1.esd_csv order by Department asc, Age desc;
+
+select * from demo1.esd_csv order by Department, Age asc;
+
+select distinct AnnualSalary from demo1.esd_csv order by AnnualSalary desc limit 2 offset 2;
+
+select distinct Age, AnnualSalary from demo1.esd_csv where Age between 20 and 30 order by AnnualSalary desc;
+
+
+select distinct Department, FullName, Country, City from demo1.esd_csv where Department in ('Accounting', 'IT');
+
+select distinct concat(FullName, '-', Department) as Name_Department from demo1.esd_csv;
+
+select distinct concat_ws('-', FullName, Department, Gender) as Name_Department from demo1.esd_csv;
+
+select distinct length(FullName) as length, FullName, upper(FullName), lower(FullName), left(FullName,4)
+, right(FullName, 4), mid(FullName, 2, 5) from demo1.esd_csv;

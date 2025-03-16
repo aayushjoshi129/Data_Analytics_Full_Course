@@ -1,0 +1,46 @@
+How SVM Kernels works?
+
+Support Vector Machine (SVM) kernels are a set of mathematical functions used to transform data into a higher dimensional space to make it easier to classify with a linear decision boundary. Here's a short and crisp explanation of how SVM kernels work:
+
+### How SVM Kernels Work:
+
+1. **Linear Kernel**:
+   - **Equation**: \( K(x_i, x_j) = x_i \cdot x_j \)
+   - **Function**: No transformation, simply calculates the dot product of two vectors.
+   - **Use Case**: When data is linearly separable.
+
+2. **Polynomial Kernel**:
+   - **Equation**: \( K(x_i, x_j) = (x_i \cdot x_j + c)^d \)
+   - **Function**: Maps data into a higher-dimensional space using polynomial functions of the original features.
+   - **Use Case**: When data is not linearly separable and requires more complex decision boundaries.
+
+3. **Radial Basis Function (RBF) / Gaussian Kernel**:
+   - **Equation**: \( K(x_i, x_j) = \exp\left(-\gamma \|x_i - x_j\|^2\right) \)
+   - **Function**: Maps data into an infinite-dimensional space using the Gaussian function. It measures the similarity between points.
+   - **Use Case**: When data is not linearly separable and requires flexible decision boundaries.
+
+4. **Sigmoid Kernel**:
+   - **Equation**: \( K(x_i, x_j) = \tanh(\alpha x_i \cdot x_j + c) \)
+   - **Function**: Similar to the activation function in neural networks.
+   - **Use Case**: It is less commonly used but can be applied in certain cases where the data resembles neural network-like behavior.
+
+### How Kernels Help:
+
+- **Non-Linear Separation**: By transforming the data into a higher-dimensional space, kernels allow SVMs to create non-linear decision boundaries.
+- **Computational Efficiency**: Kernels enable SVMs to perform complex transformations without explicitly computing the coordinates in the higher-dimensional space (thanks to the "kernel trick").
+
+### Example:
+
+Let's say you have a dataset with two classes that are not linearly separable. Using the RBF kernel, the SVM can project the data into a higher-dimensional space where a linear hyperplane can separate the classes. This transformation helps the SVM to classify the data more accurately than it could in the original feature space.
+
+### Visual Example:
+
+1. **Original Space**: The data points are in a 2D plane and are not linearly separable.
+2. **Transformed Space**: Using an RBF kernel, the data points are mapped into a higher-dimensional space where they become linearly separable.
+3. **Decision Boundary**: In the transformed space, a linear decision boundary is applied, which, when mapped back to the original space, appears as a non-linear boundary.
+
+### Conclusion:
+
+SVM kernels are powerful tools that allow SVMs to handle non-linearly separable data by transforming it into a higher-dimensional space. By choosing the appropriate kernel, you can improve the SVM's ability to classify complex datasets accurately.
+
+

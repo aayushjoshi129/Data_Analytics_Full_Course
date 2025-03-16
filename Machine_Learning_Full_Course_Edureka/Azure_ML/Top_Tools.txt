@@ -1,0 +1,21 @@
+1) Scikit Learn
+
+2) KNIME (Konstanz Information Miner)
+
+3) TensorFlow
+
+4) WEKA(The University of Waikato)
+
+5) Pytorch
+
+6) RapidMiner
+
+7) Google AutoML
+
+8) Azure Machine Learning Studio
+
+9) Accord.net
+
+10) Google Colab
+
+11) Natural Language Analysis with Python NLTK

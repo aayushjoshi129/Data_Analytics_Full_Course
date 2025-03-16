@@ -1,0 +1,13 @@
+WINDOW FUNCTIONS
+
+SELECT customer_id, staff_id, amount, sum(amount) FROM sakila.payment group by 1,2,3  order by 1,2;
+
+select customer_id, staff_id, amount, sum(amount) over (partition by staff_id) as part_1 from sakila.payment order by 1,2;
+
+select * from sakila.payment;
+
+select *, row_number() over (partition by customer_id, staff_id) from sakila.payment;
+
+select *, rank() over (partition by amount order by staff_id) from sakila.payment;
+
+select *, dense_rank() over (partition by amount order by staff_id) from sakila.payment;
